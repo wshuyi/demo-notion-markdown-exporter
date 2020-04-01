@@ -2,4 +2,4 @@ pyvis
 networkx
 requests_html
 pandas
-streamlit
+streamlit==0.57.1
