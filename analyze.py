@@ -179,24 +179,6 @@ def build_and_display_pyvis_graph(nx_graph, link_title_dict, link_content_dict, 
 
 
 
-# def on_click(change):
-# #     display("clicked!")
-# #     print(uploader)
-#     filename = uploader.metadata[-1]['name']
-# #     print(filename)
-#     content = uploader.data[-1]
-    
-#     if filename.endswith('zip'):
-#         mydata['zip'] = filename
-#         with open(filename, 'wb') as f:
-#             f.write(content)
-        
-#         with ZipFile(filename, 'r') as zipObj:
-#        # Extract all the contents of zip file in current directory
-#            zipObj.extractall(extract_path)
-        
-
-
 
 
 
@@ -221,7 +203,7 @@ uploaded_file = st.sidebar.file_uploader("Choose zip file of exported notes fold
 if uploaded_file is not None:
     # st.write(uploaded_file)
     # prepare the working dir
-    restrict = st.sidebar.checkbox("Show note outside the notebook")
+    restrict = not st.sidebar.checkbox("Show note outside the notebook")
     get_subgraph = st.sidebar.checkbox("Get subgraph")
     if get_subgraph:
         query_term = st.sidebar.text_input("Title to query")
@@ -234,10 +216,8 @@ if uploaded_file is not None:
         # Extract all the contents of zip file in current directory
             zipObj.extractall(extract_path)
         working_dir = list(Path(extract_path).glob("*"))[0]
-    # st.write(uploaded_file)
-    # st.write(list(Path(extract_path).iterdir()))
 
-        link_title_dict, title_link_dict, link_content_dict, connections = load_data(working_dir, restrict=True)
+        link_title_dict, title_link_dict, link_content_dict, connections = load_data(working_dir, restrict=restrict)
         nx_graph = build_nx_graph(connections, link_title_dict)
         pageranks = nx.pagerank(nx_graph)
 
@@ -252,106 +232,4 @@ if uploaded_file is not None:
         b64 = base64.b64encode(data.encode()).decode()  # some strings <-> bytes conversions necessary here
         href = f'<a href="data:text/html;base64,{b64}">Download HTML File</a> (right-click and choose \"save as\")'
         st.markdown(href, unsafe_allow_html=True)
-
-        # st.markdown(f"[Result here]({Path('network.html').resolve()})")
-
-        # st.write(data)
-        # st.markdown(data, unsafe_allow_html=True)
-
-        # href = f'<a href="data:file/zip;base64,{b64}">Download CSV File</a> (right-click and save as &lt;some_name&gt;.csv)'
-        # st.markdown(href, unsafe_allow_html=True)
-
-# uploader = widgets.FileUpload()
-
-
-
-
-
-# mydata = {}
-
-
-
-
-
-
-
-
-
-
-
-# display(widgets.Label('Select your file'), uploader)
-
-
-
-
-
-# uploader.observe(on_click, names=['data'])
-
-
-
-
-
-# # Path(extract_path)
-
-
-
-
-
-# # mydata['zip']
-
-
-
-
-
-# def on_button_clicked(b):
-#     working_dir = (Path(extract_path) / mydata['zip'][:-4]).resolve()
-
-#     # link_title_dict, title_link_dict, link_content_dict, connections = load_data(working_dir, restrict=False)
-#     link_title_dict, title_link_dict, link_content_dict, connections = load_data(working_dir, restrict=True)
-
-#     nx_graph = build_nx_graph(connections, link_title_dict)
-# #     print(nx_graph)
-#     pageranks = nx.pagerank(nx_graph)
-#     pyvis_graph = build_and_display_pyvis_graph(nx_graph, link_title_dict, link_content_dict, node_shape_dict=pageranks)
-# #     pyvis_graph.show("network.html")
-    
-# #     with open("network.html") as f:
-# #         data = f.read()
-# #         print(data)
-#     with output:
-# #         pass
-# #         display()
-#         display(pyvis_graph.show("network.html"))
-
-
-
-
-
-# button = widgets.Button(description="Get Graph")
-# output = widgets.Output()
-
-# display(button, output)
-# # display(button)
-
-
-
-
-
-# button.on_click(on_button_clicked)
-
-
-
-
-
-# # query_term = "Aristotle"
-
-# # sub_nx_graph = query_subgraph(nx_graph, query_term, title_link_dict)
-
-# # build_and_display_pyvis_graph(sub_nx_graph, link_title_dict, link_content_dict, node_shape_dict=pageranks).show("network.html")
-
-
-
-
-
-
 
