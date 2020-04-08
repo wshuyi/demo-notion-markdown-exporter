@@ -6,10 +6,7 @@ import networkx as nx
 from pyvis.network import Network
 import pyvis.network as net
 import base64
-
-# import ipywidgets as widgets
 import shutil
-# from pathlib import Path
 from zipfile import ZipFile
 
 
@@ -73,11 +70,6 @@ def load_data(working_dir, restrict=True):
             title_link_dict[v] = k
         return title_link_dict
     
-#     def map_link_to_note_title(link):
-#         if link in link_title_dict:
-#             return link_title_dict[link]
-#         else:
-#             return link
         
         
     def build_databases(toc_dict, restrict=True):
@@ -86,8 +78,6 @@ def load_data(working_dir, restrict=True):
         link_content_dict = {}
         connections = []
         
-#         print(len(link_title_dict))
-
         for link, title in toc_dict.items():
 
             title = title.replace('?', '_')
@@ -146,13 +136,11 @@ def build_pyvis_graph(nx_graph, link_title_dict, link_content_dict, node_shape_d
     graph = Network(notebook=True, directed=True)
     graph.from_nx(nx_graph)
     for node in graph.nodes:
-    #     print(node['id'])
         node['label'] = link_title_dict[node['id']]
         if node['id'] in link_content_dict:
             node['title'] = link_content_dict[node['id']]
         if node_shape_dict:
             node['value'] = node_shape_dict[node['id']]
-#             print(node['value'])
     return graph
 
 
@@ -172,24 +160,11 @@ def build_and_display_pyvis_graph(nx_graph, link_title_dict, link_content_dict, 
     pyvis_graph = build_pyvis_graph(nx_graph, link_title_dict, link_content_dict, node_shape_dict=node_shape_dict)
     pyvis_graph.show_buttons(filter_=['physics'])
     return pyvis_graph
-    # pyvis_graph.show("network.html")
-    
-
-
-
-
-
-
 
 
 def query_subgraph(nx_graph, query_term, title_link_dict):
 
-    # query_term = "voila 的尝试"
-    
-
     target_node = fuzzy_query(query_term, title_link_dict)
-    # print(target_node)
-
     sub_nx_graph = nx_graph.subgraph(nx.node_connected_component(nx_graph.to_undirected(), target_node))
     return sub_nx_graph
 
@@ -201,8 +176,7 @@ uploaded_file = st.sidebar.file_uploader("Choose zip file of exported notes fold
 
 
 if uploaded_file is not None:
-    # st.write(uploaded_file)
-    # prepare the working dir
+
     restrict = not st.sidebar.checkbox("Show note outside the notebook")
     get_subgraph = st.sidebar.checkbox("Get subgraph")
     if get_subgraph:
