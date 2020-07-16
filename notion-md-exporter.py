@@ -166,7 +166,9 @@ def zipdir(path, ziph):
 
 # main proc starts here
 st.title("Notion Markdown Exporter")
-st.markdown("This app is based on [Eunchan Cho(@echo724)\'s notion2md](https://github.com/echo724/notion2md)")
+st.markdown("This Web app is developed by [Shuyi Wang](https://twitter.com/wshuyi) based on [Eunchan Cho(@echo724)\'s notion2md](https://github.com/echo724/notion2md)")
+
+
 
 token_v2 = st.text_input("Your Notion token_v2:")
 url = st.text_input("The Link or ID you want to export:")
