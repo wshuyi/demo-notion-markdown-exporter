@@ -1,5 +1,3 @@
-pyvis
-networkx
-requests_html
-pandas
-streamlit
+requests==2.24.0
+streamlit==0.63.0
+notion==0.0.25

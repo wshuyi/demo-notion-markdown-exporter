@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run analyze.py
+web: sh setup.sh && streamlit run notion-md-exporter.py
