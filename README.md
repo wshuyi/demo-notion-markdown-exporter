@@ -1,3 +1,5 @@
+## Introduction
+
 This web-based app can help you to batch export notion pages to Markdown format correctly. 
 
 Please follow these simple steps.
@@ -49,5 +51,7 @@ If you like this app, please add a star to [my Github Repo](https://github.com/w
 
 That's all. Enjoy! :)
 
+## Acknowledgement
 
+This Web app is developed by [Shuyi Wang](https://twitter.com/wshuyi) based on [Eunchan Cho(@echo724)\'s notion2md](https://github.com/echo724/notion2md)
 
