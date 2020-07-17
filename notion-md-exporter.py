@@ -175,14 +175,15 @@ url = st.text_input("The Link or ID you want to export:")
 
 directory = './notion_output/'
 
-if Path(directory).exists():
-    shutil.rmtree(Path(directory))
 
 running = False
 
 if token_v2 and url and not running:
     if st.button("export"):
         running = True
+
+        if Path(directory).exists():
+            shutil.rmtree(Path(directory))
         notion_markdown_export(token_v2, url, directory)
         batch_adjust_notion_image_dir(directory)
         with ZipFile('exported.zip', 'w') as myzip:
