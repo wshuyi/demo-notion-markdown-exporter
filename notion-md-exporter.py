@@ -175,6 +175,9 @@ url = st.text_input("The Link or ID you want to export:")
 
 directory = './notion_output/'
 
+if Path(directory).exists():
+    shutil.rmtree(Path(directory))
+
 running = False
 
 if token_v2 and url and not running:
